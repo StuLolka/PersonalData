@@ -70,7 +70,7 @@ extension DataViewController {
 
 // MARK: - PersonalDataViewControllerDelegate
 extension DataViewController: DataViewControllerDelegate {
-    func addKid() {
+    func addChild() {
         if !self.isChildrenAdded {
             resetViewCell.isHidden = false
             self.isChildrenAdded = true
@@ -78,24 +78,24 @@ extension DataViewController: DataViewControllerDelegate {
         let childrenCount = childrenDataCells.count
         if childrenCount < 5 {
             let index = childrenCount
-            childrenDataCells.append((KidDataViewCell(index), KidDataViewCell.id + "\(index)"))
+            childrenDataCells.append((ChildDataViewCell(index), ChildDataViewCell.id + "\(index)"))
             registerCells()
             collectionView.reloadData()
         }
-        childrenDataCells.count == 5 ? personalDataViewCell.hideAddKidButton() : personalDataViewCell.showAddKidButton()
+        childrenDataCells.count == 5 ? personalDataViewCell.hideAddChildButton() : personalDataViewCell.showAddChildButton()
         collectionView.layoutIfNeeded()
         collectionView.scrollToItem(at: IndexPath.init(row: cells.count - 1, section: 0), at: .bottom, animated: true)
       }
 
-    func removeKid(index: Int) {
+    func removeChild(index: Int) {
         childrenDataCells.remove(at: index)
         var index = index
         while index < childrenDataCells.count {
-            guard let view = childrenDataCells[index].view as? KidDataViewCell else { return }
+            guard let view = childrenDataCells[index].view as? ChildDataViewCell else { return }
             view.minusIndex()
             index += 1
         }
-        personalDataViewCell.showAddKidButton()
+        personalDataViewCell.showAddChildButton()
         if childrenDataCells.isEmpty {
             isChildrenAdded = false
             removeResetViewCell()
@@ -125,10 +125,14 @@ extension DataViewController: DataViewControllerDelegate {
     func showActionSheet() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: String.ActionSheet.reset, style: .default) { [self] (UIAlertAction) in
+            childrenDataCells.forEach { (view: DataCell, id: String) in
+                guard let view = view as? ChildDataViewCell else { return }
+                view.resetData()
+            }
             childrenDataCells = []
             resetViewCell.isHidden = true
             personalDataViewCell.resetData()
-            personalDataViewCell.showAddKidButton()
+            personalDataViewCell.showAddChildButton()
             isChildrenAdded = false
             isPersonalDataEntered = false
             collectionView.reloadData()
@@ -143,6 +147,7 @@ extension DataViewController: DataViewControllerDelegate {
     }
 }
 
+// MARK: - Constants
 private extension DataViewController {
     enum Constants {
         static let minimumLineSpacing: CGFloat =  35

@@ -1,8 +1,8 @@
 import UIKit
 
-protocol DataViewControllerDelegate: UICollectionViewController {
-    func addKid()
-    func removeKid(index: Int)
+protocol DataViewControllerDelegate {
+    func addChild()
+    func removeChild(index: Int)
     func addResetViewCell()
     func removeResetViewCell()
     func reloadCollectionView()

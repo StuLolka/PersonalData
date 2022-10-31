@@ -15,25 +15,25 @@ final class PersonalDataViewCell: UIView, DataCell {
         return label
     }()
 
-    private lazy var nameTextField: TextFieldWithTitle = {
-        let textField = TextFieldWithTitle(String.Data.name)
-        textField.layer.borderColor = UIColor.Data.borderTextField.cgColor
-        textField.layer.borderWidth = GlobalConstants.textFieldBorderWidth
-        textField.layer.cornerRadius = GlobalConstants.textFieldCornerRadius
-        textField.addTarget(self, action: #selector(showResetButton), for: .editingDidEnd)
-        textField.delegate = self
-        return textField
+    private lazy var nameEntryView: EntryDataView = {
+        let view = EntryDataView(String.Data.name)
+        view.layer.borderColor = UIColor.Data.borderTextField.cgColor
+        view.layer.borderWidth = GlobalConstants.textFieldBorderWidth
+        view.layer.cornerRadius = GlobalConstants.textFieldCornerRadius
+        view.textField.addTarget(self, action: #selector(showResetButton), for: .editingDidEnd)
+        view.textField.delegate = self
+        return view
     }()
 
-    private lazy var ageTextField: TextFieldWithTitle = {
-        let textField = TextFieldWithTitle(String.Data.age)
-        textField.keyboardType = .numberPad
-        textField.layer.borderColor = UIColor.Data.borderTextField.cgColor
-        textField.layer.borderWidth = GlobalConstants.textFieldBorderWidth
-        textField.layer.cornerRadius = GlobalConstants.textFieldCornerRadius
-        textField.addTarget(self, action: #selector(showResetButton), for: .editingDidEnd)
-        textField.delegate = self
-        return textField
+    private lazy var ageEntryView: EntryDataView = {
+        let view = EntryDataView(String.Data.age)
+        view.textField.keyboardType = .numberPad
+        view.layer.borderColor = UIColor.Data.borderTextField.cgColor
+        view.layer.borderWidth = GlobalConstants.textFieldBorderWidth
+        view.layer.cornerRadius = GlobalConstants.textFieldCornerRadius
+        view.textField.addTarget(self, action: #selector(showResetButton), for: .editingDidEnd)
+        view.textField.delegate = self
+        return view
     }()
 
     private lazy var personalDataStackView: UIStackView = {
@@ -43,30 +43,30 @@ final class PersonalDataViewCell: UIView, DataCell {
         return stackView
     }()
 
-    private lazy var kidLabel: UILabel = {
+    private lazy var childLabel: UILabel = {
         let label = UILabel()
         label.text = String.Data.children
         label.font = UIFont(name: GlobalConstants.fontName, size: Constants.fontSize)
         return label
     }()
 
-    private lazy var addKidButton: UIButton = {
+    private lazy var addChildButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: Constants.buttonImageName), for: .normal)
-        button.setTitle(String.Data.addKid, for: .normal)
+        button.setTitle(String.Data.addChild, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = Constants.buttonMinimumScaleFactor
         button.setInsets(contentPadding: Constants.buttonContentPadding, imageTitlePadding: Constants.buttonImageTitlePadding)
-        button.setTitleColor(UIColor.Data.titleAddKidButton, for: .normal)
-        button.layer.borderColor = UIColor.Data.borderAddKidButton.cgColor
-        button.tintColor = UIColor.Data.plusAddKidButton
+        button.setTitleColor(UIColor.Data.titleAddChildButton, for: .normal)
+        button.layer.borderColor = UIColor.Data.borderAddChildButton.cgColor
+        button.tintColor = UIColor.Data.plusAddChildButton
         button.layer.borderWidth = Constants.buttonBorderWidth
         button.layer.cornerRadius = Constants.buttonCornerRadius
-        button.addTarget(self, action: #selector(addKid), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addChild), for: .touchUpInside)
         return button
     }()
 
-    private lazy var kidStackView: UIStackView = {
+    private lazy var childStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         return stackView
@@ -83,12 +83,12 @@ final class PersonalDataViewCell: UIView, DataCell {
     }
 
     // MARK: - Actions
-    @objc func addKid() {
-        delegate?.addKid()
+    @objc func addChild() {
+        delegate?.addChild()
     }
 
     @objc func showResetButton() {
-        guard let name = nameTextField.text, let age = ageTextField.text else { return }
+        guard let name = nameEntryView.textField.text, let age = ageEntryView.textField.text else { return }
         if name.isEmpty && age.isEmpty {
             delegate?.setIsPersonalDataEntered(false)
             delegate?.removeResetViewCell()
@@ -96,31 +96,31 @@ final class PersonalDataViewCell: UIView, DataCell {
         } else {
             delegate?.addResetViewCell()
             delegate?.setIsPersonalDataEntered(true)
-            delegate?.collectionView.reloadData()
+            delegate?.reloadCollectionView()
         }
     }
 
     // MARK: - Methods
-    func hideAddKidButton() {
-        addKidButton.isHidden = true
+    func hideAddChildButton() {
+        addChildButton.isHidden = true
     }
 
-    func showAddKidButton() {
-        addKidButton.isHidden = false
+    func showAddChildButton() {
+        addChildButton.isHidden = false
     }
 
     func resetData() {
-        nameTextField.text = ""
-        ageTextField.text = ""
+        nameEntryView.textField.text = ""
+        ageEntryView.textField.text = ""
     }
 
     // MARK: - Setup view
     private func setupView() {
         backgroundColor = .clear
 
-        personalDataStackView.addArrangedSubviews(titleLabel, nameTextField, ageTextField)
-        kidStackView.addArrangedSubviews(kidLabel, addKidButton)
-        addSubviews(personalDataStackView, kidStackView)
+        personalDataStackView.addArrangedSubviews(titleLabel, nameEntryView, ageEntryView)
+        childStackView.addArrangedSubviews(childLabel, addChildButton)
+        addSubviews(personalDataStackView, childStackView)
         personalDataStackView.setCustomSpacing(Constants.personalDataCustomSpacing, after: titleLabel)
         setupConstraints()
     }
@@ -130,11 +130,11 @@ final class PersonalDataViewCell: UIView, DataCell {
             make.width.equalTo(GlobalConstants.cellWidth)
         }
 
-        nameTextField.snp.makeConstraints { make in
+        nameEntryView.snp.makeConstraints { make in
             make.height.equalTo(GlobalConstants.textFieldHeight)
         }
 
-        ageTextField.snp.makeConstraints { make in
+        ageEntryView.snp.makeConstraints { make in
             make.height.equalTo(GlobalConstants.textFieldHeight)
         }
 
@@ -142,17 +142,17 @@ final class PersonalDataViewCell: UIView, DataCell {
             make.top.left.right.equalToSuperview()
         }
 
-        kidLabel.snp.makeConstraints { make in
-            make.width.equalTo(Constants.kidLabelWidth)
+        childLabel.snp.makeConstraints { make in
+            make.width.equalTo(Constants.childLabelWidth)
         }
 
-        addKidButton.snp.makeConstraints { make in
+        addChildButton.snp.makeConstraints { make in
             make.height.equalTo(Constants.buttonHeight)
             make.width.equalTo(Constants.buttonWidth)
         }
 
-        kidStackView.snp.makeConstraints { make in
-            make.top.equalTo(personalDataStackView.snp_bottomMargin).offset(Constants.kidTopSpace)
+        childStackView.snp.makeConstraints { make in
+            make.top.equalTo(personalDataStackView.snp_bottomMargin).offset(Constants.childTopSpace)
             make.bottom.equalToSuperview()
         }
    }
@@ -160,6 +160,13 @@ final class PersonalDataViewCell: UIView, DataCell {
 
 // MARK: - Set maximum character in text views
 extension PersonalDataViewCell: UITextFieldDelegate {
+    // MARK: Hide errors
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        nameEntryView.hideError()
+        ageEntryView.hideError()
+    }
+
+    // MARK: Check input data
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text,
             let range = Range(range, in: text) else {
@@ -168,10 +175,10 @@ extension PersonalDataViewCell: UITextFieldDelegate {
         let substringToReplace = text[range]
         let count = text.count - substringToReplace.count + string.count
         switch textField {
-        case nameTextField:
-            return count <= GlobalConstants.maxNameLength && string.checkStringForLetter()
-        case ageTextField:
-            return count <= GlobalConstants.maxAgeLength && string.first != "0"
+        case nameEntryView.textField:
+            return CheckData.isNameValid(count: count, str: string, entryView: nameEntryView)
+        case ageEntryView.textField:
+            return CheckData.isAgeValid(count: count, str: string, entryView: ageEntryView, isChild: false)
         default:
             return false
         }
@@ -181,12 +188,12 @@ extension PersonalDataViewCell: UITextFieldDelegate {
 // MARK: - Constants
 private extension PersonalDataViewCell {
     enum Constants {
-        static let kidLabelWidth =  GlobalConstants.cellWidth - GlobalConstants.width / 2
+        static let childLabelWidth =  GlobalConstants.cellWidth - GlobalConstants.width / 2
         static let buttonHeight = 45
         static let fontSize: CGFloat = 20
         static let buttonWidth = GlobalConstants.width / 2
         static let buttonImageName = "plus"
-        static let kidTopSpace = 10
+        static let childTopSpace = 10
         static let personalDataSpacing: CGFloat = 10
         static let personalDataCustomSpacing: CGFloat = 15
         static let buttonBorderWidth: CGFloat = 2

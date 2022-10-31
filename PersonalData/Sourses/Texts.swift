@@ -30,8 +30,8 @@ extension String {
             comment: "Текст слева от кнопки 'Добавить ребенка'"
         )
 
-        static let addKid = NSLocalizedString(
-            "Data.addKid",
+        static let addChild = NSLocalizedString(
+            "Data.addChild",
             bundle: .main,
             value: "Добавить ребенка",
             comment: "Текст кнопки для добавления ребенка"
@@ -50,6 +50,35 @@ extension String {
             value: "Очистить",
             comment: "Текст кнопки для вызова ActionSheet"
         )
+        enum Errors {
+            static let maxSymbols = NSLocalizedString(
+                "Data.Errors.maxSymbols",
+                bundle: .main,
+                value: "Максимум 50 символов",
+                comment: "Текст для ошибки при вводе длинного имени"
+            )
+            
+            static let onlyLetters = NSLocalizedString(
+                "Data.Errors.onlyLetters",
+                bundle: .main,
+                value: "Может содержать только буквы",
+                comment: "Текст для ошибки при вводе не букв"
+            )
+
+            static let incorrectAge = NSLocalizedString(
+                "Data.Errors.incorrectAge",
+                bundle: .main,
+                value: "Некорректный возраст",
+                comment: "Текст для ошибки при вводе чисел после нуля (для ребенка)"
+            )
+
+            static let mustBeLessThan = NSLocalizedString(
+                "Data.Errors.mustBeLessThan",
+                bundle: .main,
+                value: "Должно быть меньше 99",
+                comment: "Текст для ошибки при попытке ввести трехзначное число"
+            )
+        }
     }
 
     enum ActionSheet {
