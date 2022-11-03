@@ -132,7 +132,7 @@ extension ChildDataViewCell: UITextFieldDelegate {
         case nameEntryView.textField:
             return CheckData.isNameValid(count: count, str: string, entryView: nameEntryView)
         case ageEntryView.textField:
-            return CheckData.isAgeValid(count: count, str: string, entryView: ageEntryView, isChild: true)
+            return CheckData.isAgeValid(count: count, str: string, entryView: ageEntryView)
         default:
             return false
         }

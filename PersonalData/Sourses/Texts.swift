@@ -13,14 +13,49 @@ extension String {
             "Data.name",
             bundle: .main,
             value: "Имя",
-            comment: "Текст для placeholder"
+            comment: "Заголовок для ввода текста"
         )
 
         static let age = NSLocalizedString(
             "Data.age",
             bundle: .main,
             value: "Возраст",
-            comment: "Текст для placeholder"
+            comment: "Заголовок для ввода текста"
+        )
+
+        static let country = NSLocalizedString(
+            "Data.country",
+            bundle: .main,
+            value: "Страна проживания",
+            comment: "Заголовок для ввода текста"
+        )
+
+        static let chooseSex = NSLocalizedString(
+            "Data.chooseSex",
+            bundle: .main,
+            value: "Пол",
+            comment: "Текст над кнопкой выбора пола"
+        )
+
+        static let femaleSex = NSLocalizedString(
+            "Data.femaleSex",
+            bundle: .main,
+            value: "Женский",
+            comment: "Текст кнопки выбора пола"
+        )
+
+        static let maleSex = NSLocalizedString(
+            "Data.maleSex",
+            bundle: .main,
+            value: "Мужской",
+            comment: "Текст кнопки выбора пола"
+        )
+
+        static let dateBirth = NSLocalizedString(
+            "Data.dateBirth",
+            bundle: .main,
+            value: "Дата рождения",
+            comment: "Текст кнопки выбора пола"
         )
 
         static let children = NSLocalizedString(

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		200755E029123C7100496B2A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200755DF29123C7100496B2A /* Date.swift */; };
+		200755E22912421900496B2A /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200755E12912421900496B2A /* Images.swift */; };
 		2030FBE1290D812200B083D3 /* EntryDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030FBE0290D812200B083D3 /* EntryDataView.swift */; };
 		2081C2BF290D702300132A73 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081C2BE290D702300132A73 /* String.swift */; };
 		20A42C1B290958DF00D94C0F /* DataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A42C1A290958DF00D94C0F /* DataFactory.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		200755DF29123C7100496B2A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		200755E12912421900496B2A /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		2030FBE0290D812200B083D3 /* EntryDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDataView.swift; sourceTree = "<group>"; };
 		2081C2BE290D702300132A73 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		20A42C1A290958DF00D94C0F /* DataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFactory.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 				20A42C23290959E400D94C0F /* GlobalConstants.swift */,
 				20CB82A3290AF96800B53EF9 /* Colors.swift */,
 				20A42C1F290959C300D94C0F /* Texts.swift */,
+				200755E12912421900496B2A /* Images.swift */,
 			);
 			path = Sourses;
 			sourceTree = "<group>";
@@ -99,6 +104,7 @@
 				20A42C292909919400D94C0F /* StackView.swift */,
 				2081C2BE290D702300132A73 /* String.swift */,
 				20D71B3D290EC1EA0052F093 /* CheckData.swift */,
+				200755DF29123C7100496B2A /* Date.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -313,10 +319,12 @@
 				20A42C2829095BF000D94C0F /* PersonalDataViewCell.swift in Sources */,
 				20C465DD290C18680005F718 /* DataViewControllerDelegate.swift in Sources */,
 				20EA01342909A84500A98D1F /* UIButton.swift in Sources */,
+				200755E22912421900496B2A /* Images.swift in Sources */,
 				20D71B3E290EC1EA0052F093 /* CheckData.swift in Sources */,
 				20B7B87229095727008BE48A /* DataViewController.swift in Sources */,
 				20A42C20290959C300D94C0F /* Texts.swift in Sources */,
 				20B7B86E29095727008BE48A /* AppDelegate.swift in Sources */,
+				200755E029123C7100496B2A /* Date.swift in Sources */,
 				20A42C22290959D600D94C0F /* View.swift in Sources */,
 				20A42C1B290958DF00D94C0F /* DataFactory.swift in Sources */,
 				20A42C2A2909919400D94C0F /* StackView.swift in Sources */,

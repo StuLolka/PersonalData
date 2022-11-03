@@ -12,11 +12,11 @@ enum CheckData {
         return canTextBeContinued && isOnlyLetters
     }
 
-    static func isAgeValid(count: Int, str: String, entryView: EntryDataView, isChild: Bool) -> Bool {
+    static func isAgeValid(count: Int, str: String, entryView: EntryDataView) -> Bool {
         guard let text = entryView.textField.text else { return false }
-        let isFirstNumberCorrect = text.count == 0 ? str.first != "0" || isChild : !(text.first == "0" && !str.isEmpty)
-        let isItTryToEnterTextAfterZero = !isFirstNumberCorrect && !str.isEmpty
-        let canTextBeContinued = count <= GlobalConstants.maxAgeLength && isFirstNumberCorrect && !isItTryToEnterTextAfterZero
+        let firstNumber = text.first
+        let isItTryToEnterTextAfterZero = firstNumber == "0" && !str.isEmpty
+        let canTextBeContinued = count <= GlobalConstants.maxAgeLength && !isItTryToEnterTextAfterZero
 
         if isItTryToEnterTextAfterZero {
             entryView.showError(error: String.Data.Errors.incorrectAge)

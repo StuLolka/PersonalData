@@ -13,4 +13,8 @@ extension UIColor {
         static let errorTextColor: UIColor = UIColor(named: "errorTextColor") ?? .red
         static let titleTextField: UIColor = UIColor(named: "titleTextField") ?? .lightGray
     }
+
+    enum DatePicker {
+        static let datePickerTint: UIColor = UIColor(named: "datePickerTint") ?? .lightGray
+    }
 }
