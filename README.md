@@ -13,6 +13,11 @@ Picker to choose counry:
 Once you enter some information, a button will appear to reset all the entered data.
 
 
+Picker too choose your birthday:
+
+<img src="https://github.com/StuLolka/PersonalData/blob/main/ScreensForReadme/date_picker.jpg" width="235" height="400">
+
+
 Field for children:
 
 <img src="https://github.com/StuLolka/PersonalData/blob/main/ScreensForReadme/child_added.jpg" width="235" height="400">
