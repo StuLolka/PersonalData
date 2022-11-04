@@ -14,6 +14,10 @@ extension UIColor {
         static let titleTextField: UIColor = UIColor(named: "titleTextField") ?? .lightGray
     }
 
+    enum PickerWithToolBar {
+        static let backgroundToolBar: UIColor = UIColor(named: "backgroundToolBar") ?? .systemGray6
+    }
+
     enum DatePicker {
         static let datePickerTint: UIColor = UIColor(named: "datePickerTint") ?? .lightGray
     }

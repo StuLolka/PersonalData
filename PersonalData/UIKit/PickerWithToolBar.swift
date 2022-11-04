@@ -6,19 +6,21 @@ final class PickerWithToolBar: UIView {
     var delegate: DataViewControllerDelegate?
 
     // MARK: - Subviews Properties
-    lazy var picker: UIPickerView = {
-        let picker = UIPickerView()
-        picker.backgroundColor = .white
-        return picker
+    lazy var picker = UIPickerView()
+
+    private lazy var test: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.PickerWithToolBar.backgroundToolBar
+        return view
     }()
 
-    private lazy var toolBar: UIToolbar = {
-        let bar = UIToolbar()
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(hideView))
-        button.tintColor = .black
-        bar.sizeToFit()
-        bar.setItems([button], animated: true)
-        return bar
+    private lazy var doneButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(hideView), for: .touchUpInside)
+        button.setTitle("Done", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: Constants.buttonTitleFontSize)
+        return button
     }()
 
     // MARK: - Init
@@ -38,21 +40,34 @@ final class PickerWithToolBar: UIView {
 
     // MARK: - Set up view
     private func setupView() {
-        addSubview(toolBar)
+        backgroundColor = .white
+        test.addSubview(doneButton)
+        addSubview(test)
         addSubview(picker)
         setupConstraints()
     }
 
     // MARK: - Set up constraints
     private func setupConstraints() {
-        toolBar.snp.makeConstraints { make in
+        test.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(35)
+        }
+
+        doneButton.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
 
         picker.snp.makeConstraints { make in
-            make.top.equalTo(toolBar.snp_bottomMargin)
+            make.top.equalTo(test.snp_bottomMargin)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+}
 
+// MARK: - Constants
+extension PickerWithToolBar {
+    enum Constants {
+        static let buttonTitleFontSize: CGFloat = 15
+    }
 }

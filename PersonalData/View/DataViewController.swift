@@ -20,7 +20,7 @@ final class DataViewController: UICollectionViewController {
     private lazy var resetViewCell = ResetViewCell()
 
     private lazy var personalDataCell: [(view: DataCell, id: String)] = [(personalDataViewCell, PersonalDataViewCell.id)]
-    private lazy var childrenDataCells: [(view: DataCell, id: String)] = []
+    private lazy var childrenDataCells: [(view: ChildData, id: String)] = []
     private lazy var resetCell: [(view: DataCell, id: String)] = [(resetViewCell, ResetViewCell.id)]
 
     private var cells: [(view: DataCell, id: String)] {
@@ -111,6 +111,16 @@ extension DataViewController: DataViewControllerDelegate {
             resetViewCell.isHidden = false
             self.isChildrenAdded = true
         }
+        var dataIsEmpty = false
+        for child in childrenDataCells {
+            if child.view.checkTextFieldIsEmpty() {
+                dataIsEmpty = true
+            }
+        }
+        if dataIsEmpty {
+            return
+        }
+
         let childrenCount = childrenDataCells.count
         if childrenCount < 5 {
             let index = childrenCount
@@ -121,13 +131,13 @@ extension DataViewController: DataViewControllerDelegate {
         childrenDataCells.count == 5 ? personalDataViewCell.hideAddChildButton() : personalDataViewCell.showAddChildButton()
         collectionView.layoutIfNeeded()
         collectionView.scrollToItem(at: IndexPath.init(row: cells.count - 1, section: 0), at: .bottom, animated: true)
-      }
+    }
 
     func removeChild(index: Int) {
         childrenDataCells.remove(at: index)
         var index = index
         while index < childrenDataCells.count {
-            guard let view = childrenDataCells[index].view as? ChildDataViewCell else { return }
+            let view = childrenDataCells[index].view
             view.minusIndex()
             index += 1
         }

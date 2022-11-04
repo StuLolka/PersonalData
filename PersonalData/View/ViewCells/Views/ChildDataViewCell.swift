@@ -1,7 +1,12 @@
 import UIKit
 import SnapKit
 
-final class ChildDataViewCell: UIView, DataCell {
+protocol ChildData: DataCell {
+    func minusIndex()
+    func checkTextFieldIsEmpty() -> Bool
+}
+
+final class ChildDataViewCell: UIView, ChildData {
     // MARK: - Properties
     var delegate: DataViewControllerDelegate?
     static var id = "ChildDataViewCell"
@@ -71,11 +76,31 @@ final class ChildDataViewCell: UIView, DataCell {
         delegate?.removeChild(index: index)
         nameEntryView.textField.text = ""
         ageEntryView.textField.text = ""
+        nameEntryView.hideError()
+        ageEntryView.hideError()
     }
 
     func resetData() {
         nameEntryView.textField.text = ""
         ageEntryView.textField.text = ""
+    }
+
+    func checkTextFieldIsEmpty() -> Bool {
+        guard let name = nameEntryView.textField.text, let age = ageEntryView.textField.text else { return true }
+        var isDataEmpty = false
+        if name.isEmpty {
+            isDataEmpty = true
+            nameEntryView.showError(error: String.Data.Errors.shouldBeFilled)
+        } else {
+            nameEntryView.hideError()
+        }
+        if age.isEmpty {
+            isDataEmpty = true
+            ageEntryView.showError(error: String.Data.Errors.shouldBeFilled)
+        } else {
+            ageEntryView.hideError()
+        }
+        return isDataEmpty
     }
 
     // MARK: - Setup view
