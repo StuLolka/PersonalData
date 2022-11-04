@@ -7,6 +7,15 @@ final class DataViewController: UICollectionViewController {
     private var isChildrenAdded = false
 
     // MARK: - Subviews Properties
+    private lazy var countryPickerView: PickerWithToolBar = {
+        let picker = PickerWithToolBar()
+        picker.delegate = self
+        picker.isHidden = true
+        picker.picker.delegate = personalDataViewCell
+        picker.picker.dataSource = personalDataViewCell
+        return picker
+    }()
+    
     private lazy var personalDataViewCell = PersonalDataViewCell()
     private lazy var resetViewCell = ResetViewCell()
 
@@ -35,17 +44,29 @@ final class DataViewController: UICollectionViewController {
 
     // MARK: - Setup view
     private func setupView() {
+        let model =  PersonalDataModel()
+        personalDataViewCell.setModel(model: model)
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         view.addGestureRecognizer(tap)
         collectionView.contentInset = .init(top: 20, left: 0, bottom: 15, right: 0)
         collectionView.backgroundColor = .systemBackground
         resetViewCell.isHidden = true
         registerCells()
+
+        view.addSubview(countryPickerView)
+        countryPickerView.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.snp_centerYWithinMargins)
+        }
     }
 
     //MARK: - Actions
     @objc func endEditing() {
         view.endEditing(true)
+        countryPickerView.isHidden = true
+        cells.forEach { (view: DataCell, _) in
+            view.isUserInteractionEnabled = true
+        }
     }
 
     // MARK: - Methods
@@ -70,6 +91,21 @@ extension DataViewController {
 
 // MARK: - PersonalDataViewControllerDelegate
 extension DataViewController: DataViewControllerDelegate {
+    func showCountryPicker() {
+        view.endEditing(true)
+        cells.forEach { (view: DataCell, _) in
+            view.isUserInteractionEnabled = false
+        }
+        countryPickerView.isHidden = false
+    }
+
+    func hideCountryPicker() {
+        cells.forEach { (view: DataCell, _) in
+            view.isUserInteractionEnabled = true
+        }
+        countryPickerView.isHidden = true
+    }
+
     func addChild() {
         if !self.isChildrenAdded {
             resetViewCell.isHidden = false

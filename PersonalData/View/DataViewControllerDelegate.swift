@@ -2,6 +2,8 @@ import UIKit
 
 protocol DataViewControllerDelegate {
     func addChild()
+    func showCountryPicker()
+    func hideCountryPicker()
     func removeChild(index: Int)
     func addResetViewCell()
     func removeResetViewCell()

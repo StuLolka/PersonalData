@@ -10,6 +10,8 @@
 		200755E029123C7100496B2A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200755DF29123C7100496B2A /* Date.swift */; };
 		200755E22912421900496B2A /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200755E12912421900496B2A /* Images.swift */; };
 		2030FBE1290D812200B083D3 /* EntryDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030FBE0290D812200B083D3 /* EntryDataView.swift */; };
+		207FB7C929151DB80088DBF4 /* PickerWithToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FB7C829151DB80088DBF4 /* PickerWithToolBar.swift */; };
+		207FB7CB291536DC0088DBF4 /* PersonalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FB7CA291536DC0088DBF4 /* PersonalDataModel.swift */; };
 		2081C2BF290D702300132A73 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2081C2BE290D702300132A73 /* String.swift */; };
 		20A42C1B290958DF00D94C0F /* DataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A42C1A290958DF00D94C0F /* DataFactory.swift */; };
 		20A42C1E2909597300D94C0F /* ResetViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A42C1D2909597300D94C0F /* ResetViewCell.swift */; };
@@ -37,6 +39,8 @@
 		200755DF29123C7100496B2A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		200755E12912421900496B2A /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		2030FBE0290D812200B083D3 /* EntryDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDataView.swift; sourceTree = "<group>"; };
+		207FB7C829151DB80088DBF4 /* PickerWithToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithToolBar.swift; sourceTree = "<group>"; };
+		207FB7CA291536DC0088DBF4 /* PersonalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataModel.swift; sourceTree = "<group>"; };
 		2081C2BE290D702300132A73 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		20A42C1A290958DF00D94C0F /* DataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFactory.swift; sourceTree = "<group>"; };
 		20A42C1D2909597300D94C0F /* ResetViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetViewCell.swift; sourceTree = "<group>"; };
@@ -84,6 +88,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		207FB7CC29153AD50088DBF4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				207FB7CA291536DC0088DBF4 /* PersonalDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		207FB7CD29153AEB0088DBF4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				20A42C1D2909597300D94C0F /* ResetViewCell.swift */,
+				20A42C2729095BF000D94C0F /* PersonalDataViewCell.swift */,
+				20EA01372909BD9400A98D1F /* DataCell.swift */,
+				20A42C2529095BDA00D94C0F /* ChildDataViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2081C2C0290D713900132A73 /* Sourses */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,10 +143,8 @@
 		20A42C1C2909595A00D94C0F /* ViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				20A42C1D2909597300D94C0F /* ResetViewCell.swift */,
-				20A42C2529095BDA00D94C0F /* ChildDataViewCell.swift */,
-				20A42C2729095BF000D94C0F /* PersonalDataViewCell.swift */,
-				20EA01372909BD9400A98D1F /* DataCell.swift */,
+				207FB7CC29153AD50088DBF4 /* Models */,
+				207FB7CD29153AEB0088DBF4 /* Views */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -132,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				2030FBE0290D812200B083D3 /* EntryDataView.swift */,
+				207FB7C829151DB80088DBF4 /* PickerWithToolBar.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -321,6 +343,7 @@
 				20EA01342909A84500A98D1F /* UIButton.swift in Sources */,
 				200755E22912421900496B2A /* Images.swift in Sources */,
 				20D71B3E290EC1EA0052F093 /* CheckData.swift in Sources */,
+				207FB7C929151DB80088DBF4 /* PickerWithToolBar.swift in Sources */,
 				20B7B87229095727008BE48A /* DataViewController.swift in Sources */,
 				20A42C20290959C300D94C0F /* Texts.swift in Sources */,
 				20B7B86E29095727008BE48A /* AppDelegate.swift in Sources */,
@@ -330,6 +353,7 @@
 				20A42C2A2909919400D94C0F /* StackView.swift in Sources */,
 				20CB82A4290AF96800B53EF9 /* Colors.swift in Sources */,
 				2081C2BF290D702300132A73 /* String.swift in Sources */,
+				207FB7CB291536DC0088DBF4 /* PersonalDataModel.swift in Sources */,
 				20B7B87029095727008BE48A /* SceneDelegate.swift in Sources */,
 				20EA01382909BD9400A98D1F /* DataCell.swift in Sources */,
 				20A42C24290959E400D94C0F /* GlobalConstants.swift in Sources */,

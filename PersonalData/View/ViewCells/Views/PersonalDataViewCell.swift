@@ -6,6 +6,13 @@ final class PersonalDataViewCell: UIView, DataCell {
     var delegate: DataViewControllerDelegate?
     static var id = "PersonalDataViewCell"
     private var index: Int?
+
+    private lazy var countries: [String] = {
+        guard let model = model else { return [] }
+        return model.createCountryList()
+    }()
+
+    var model: PersonalDataModel?
     
     // MARK: - Subviews Properties
     private lazy var titleLabel: UILabel = {
@@ -25,12 +32,11 @@ final class PersonalDataViewCell: UIView, DataCell {
         return view
     }()
 
-    private lazy var cityEntryView: EntryDataView = {
+    private lazy var countryEntryView: EntryDataView = {
         let view = EntryDataView(String.Data.country)
         view.layer.borderColor = UIColor.Data.borderTextField.cgColor
         view.layer.borderWidth = GlobalConstants.textFieldBorderWidth
         view.layer.cornerRadius = GlobalConstants.textFieldCornerRadius
-        view.textField.addTarget(self, action: #selector(showResetButton), for: .editingDidEnd)
         view.textField.delegate = self
         return view
     }()
@@ -153,7 +159,7 @@ final class PersonalDataViewCell: UIView, DataCell {
     }
 
     @objc func femaleIsSelected() {
-        femaleButton.isSelected = !femaleButton.isSelected
+        femaleButton.isSelected = true
         femaleButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: Constants.chooseSexButtonFontSize)
         maleButton.isSelected = false
         maleButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.chooseSexButtonFontSize)
@@ -161,7 +167,7 @@ final class PersonalDataViewCell: UIView, DataCell {
     }
 
     @objc func maleIsSelected() {
-        maleButton.isSelected = !maleButton.isSelected
+        maleButton.isSelected = true
         femaleButton.isSelected = false
         maleButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: Constants.chooseSexButtonFontSize)
         femaleButton.titleLabel?.font = UIFont.systemFont(ofSize: Constants.chooseSexButtonFontSize)
@@ -170,9 +176,9 @@ final class PersonalDataViewCell: UIView, DataCell {
 
     @objc func showResetButton() {
         guard let name = nameEntryView.textField.text,
-              let city = cityEntryView.textField.text else { return }
+              let country = countryEntryView.textField.text else { return }
 
-        if name.isEmpty && city.isEmpty && !femaleButton.isSelected && !maleButton.isSelected && !datePicker.isSelected {
+        if name.isEmpty && country.isEmpty && !femaleButton.isSelected && !maleButton.isSelected && !datePicker.isSelected {
             delegate?.setIsPersonalDataEntered(false)
             delegate?.removeResetViewCell()
             delegate?.reloadCollectionView()
@@ -184,6 +190,10 @@ final class PersonalDataViewCell: UIView, DataCell {
     }
 
     // MARK: - Methods
+    func setModel(model: PersonalDataModel) {
+        self.model = model
+    }
+
     func hideAddChildButton() {
         addChildButton.isHidden = true
     }
@@ -194,7 +204,7 @@ final class PersonalDataViewCell: UIView, DataCell {
 
     func resetData() {
         nameEntryView.textField.text = ""
-        cityEntryView.textField.text = ""
+        countryEntryView.textField.text = ""
         femaleButton.isSelected = false
         maleButton.isSelected = false
         guard let maximumDate = datePicker.maximumDate else { return }
@@ -207,7 +217,7 @@ final class PersonalDataViewCell: UIView, DataCell {
         sexView.addSubviews(chooseSexTitle, sexStackView)
         birthView.addSubviews(dateBirthLabel, datePicker)
         sexStackView.addArrangedSubviews(femaleButton, maleButton)
-        personalDataStackView.addArrangedSubviews(titleLabel, nameEntryView, cityEntryView, sexView, birthView)
+        personalDataStackView.addArrangedSubviews(titleLabel, nameEntryView, countryEntryView, sexView, birthView)
         childStackView.addArrangedSubviews(childLabel, addChildButton)
         addSubviews(personalDataStackView, childStackView)
         personalDataStackView.setCustomSpacing(Constants.personalDataCustomSpacing, after: titleLabel)
@@ -223,7 +233,7 @@ final class PersonalDataViewCell: UIView, DataCell {
             make.height.equalTo(GlobalConstants.textFieldHeight)
         }
 
-        cityEntryView.snp.makeConstraints { make in
+        countryEntryView.snp.makeConstraints { make in
             make.height.equalTo(GlobalConstants.textFieldHeight)
         }
 
@@ -280,6 +290,18 @@ final class PersonalDataViewCell: UIView, DataCell {
 
 // MARK: - Set maximum character in text views
 extension PersonalDataViewCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard textField == countryEntryView.textField,
+              let text = countryEntryView.textField.text,
+                !countries.isEmpty else { return true }
+        delegate?.showCountryPicker()
+        delegate?.addResetViewCell()
+        if text.isEmpty {
+            countryEntryView.textField.text = countries[0]
+        }
+        return false
+    }
+
     // MARK: Hide errors
     func textFieldDidEndEditing(_ textField: UITextField) {
         nameEntryView.hideError()
@@ -296,11 +318,33 @@ extension PersonalDataViewCell: UITextFieldDelegate {
         switch textField {
         case nameEntryView.textField:
             return CheckData.isNameValid(count: count, str: string, entryView: nameEntryView)
-        case cityEntryView.textField:
+        case countryEntryView.textField:
             return true
         default:
             return false
         }
+    }
+}
+
+// MARK: - UIPickerViewDelegate
+extension PersonalDataViewCell: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        countries[row]
+    }
+}
+
+// MARK: - UIPickerViewDataSource
+extension PersonalDataViewCell: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        countries.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        countryEntryView.textField.text = countries[row]
     }
 }
 

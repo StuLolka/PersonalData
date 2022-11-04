@@ -32,7 +32,7 @@ final class EntryDataView: UIView {
         setupView(text: title)
     }
 
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
